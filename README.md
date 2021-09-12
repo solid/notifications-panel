@@ -8,7 +8,7 @@ This panel has a [charter](https://github.com/solid/process/blob/main/notificati
 
 All substantive contributors to any Work Items must be members of the Solid CG. It’s easy to [join the CG](https://www.w3.org/community/solid/join) if you’d like to contribute.
 
-Anyone can join the [Solid Notifications Panel chat](https://gitter.im/solid/notification-panel).
+Anyone can join the [Solid Notifications Panel chat](https://gitter.im/solid/notifications-panel).
 
 Online panel meetings take place on Thursdays at 14:00 UTC at https://meet.jit.si/solid-notifications . The meetings are minuted and the past [minutes](https://github.com/solid/notification-panel/blob/main/minutes/) are available.
 
