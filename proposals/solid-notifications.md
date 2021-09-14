@@ -44,7 +44,7 @@ The following diagram shows the high level interactions involved in this flow. H
 
 For any resource in a data pod, a client can discover the associated notification gateway API by fetching the Solid Server Metadata Resource. This resource can be retrieved by appending /.well-known/solid to the base URL of the data pod.
 
-```
+```http
 GET /.well-known/solid
 ```
 
@@ -52,7 +52,7 @@ The server `MUST` be capable of serializing this resource as Turtle or JSON-LD.
 
 A sample representation of this resource might include the following:
 
-```
+```http
 Content-Type: application/ld+json
 
 {
@@ -79,7 +79,9 @@ Authentication is not required at this endpoint.
 
 A sample interaction is described below. The type and feature names are included as examples.
 
-```
+#### Request
+
+```http
 POST /gateway
 Content-Type: application/ld+json
 
@@ -90,7 +92,9 @@ Content-Type: application/ld+json
 }
 ```
 
-```
+#### Response
+
+```http
 HTTP/2
 Content-Type: application/ld+json
 
