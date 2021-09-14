@@ -1,5 +1,7 @@
 # Solid Notifications
 
+**Status**: Proposal
+
 ## Introduction
 
 Much of the Solid Protocol is built on a RESTful API. This allows Solid to make use of well-understood interactions with resources on the Web, and this satisfies many use cases for client applications in the Solid ecosystem. However, for interactive client applications with multiple participants, chat-apps being just one such example, a RESTful API is too limited, as clients need to rely on polling in order to discover changes in the underlying data.
