@@ -42,7 +42,7 @@ The following is an example flow for the solid webhook notification flow with th
 ### Actors
 
  - **Authenticated User**: The user authenticated with the client server. In this case, our authenticated user is Bob, with the WebId `https://bob.pod.example/profile/card#me`.
- - **Client Server**: A server interestest in a websocket alert. In this example it is "Liqid Chat," a chat app API hosted at `https://api.liqid.chat`.
+ - **Client Server**: A server interestest in a webhook alert. In this example it is "Liqid Chat," a chat app API hosted at `https://api.liqid.chat`.
  - **Solid Metadata Resouce**: A metadata resource compliant with the Solid Specification. In this example, it is hosted at `https://pod.example/.well-known/solid`.
  - **Gateway API**: An HTTP endpoint at which a client can negotiate an acceptable notification subscription location. In this example, it is hosted at `https://pod.example/gateway`.
  - **Subscription API**: an HTTP endpoint at which a client can initiate a subscription to notification events for a particular set of resources. In this example, it is hosted at `https://pod.example/subscription`
