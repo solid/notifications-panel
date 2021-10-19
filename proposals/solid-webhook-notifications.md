@@ -18,14 +18,14 @@ This document proposes an implementation for the `WebHookSubscription2021` Solid
     3. **Filtered notifications** - certain categories of notifications may be more or less interesting to clients. For example, a client may not care about UPDATE operations or may only care about notifications for resources of certain types.
     4. **Time-bound subscriptions** - occasionally, a client only needs a subscription to be in effect for a limited period of time. While a client may easily close a WebSocket itself, subscriptions for other, more asynchronous forms of notifications, such as LDN alerts or WebHook operations, may be more difficult to terminate.
     5. **Avoiding missing updates** - for WebSockets and protocols that rely on an active, live connection to a notification server, the notification protocol needs to make sure that clients do not miss notifications in the event of a dropped connection.
-    6. **Protocol negotiation** - a given Solid Notification server may support certain technologies (e.g. WebSockets and LDN) but not others (e.g. EventSource and WebSub). Likewise, a client may not support the same set of protocols that are implemented by a server. As such, there needs to be a mechanism for clients and servers to agree on a mutually supported protocol. In addition to simply determining the set of protocols that work for client and server, there may be particular features (e.g. notification aggregation, notification filtering) that are required for the client. This could be used to further filter the protocol selection.
+    6. **Protocol negotiation** - a given Solid Notification server may support certain technologies (e.g., WebSockets and LDN) but not others (e.g., EventSource and WebSub). Likewise, a client may not support the same set of protocols that are implemented by a server. As such, there needs to be a mechanism for clients and servers to agree on a mutually supported protocol. In addition to simply determining the set of protocols that work for client and server, there may be particular features (e.g., notification aggregation, notification filtering) that are required for the client. This could be used to further filter the protocol selection.
     7. **Security** - a client should not be able to subscribe to resources to which it does not have read access.
  2. **Verifiable requests to a subscribing server** - a subscribing server must be able to confirm if a request truly came from a specific Pod.
  3. **Unsubscribing from a WebHook** - Unlike websockets, where sockets can simply be closed by the client, if a subscribing server wants to unsubscribe from a webhook, it must alert a Pod.
 
 ## Terminology
 
-This document uses terms from the Solid Protocol specification, including "data pod". This document also uses terms from the OAuth2 specification, including "resource server", "authorization server" and "client", as well as terms from the WebSub specification, including "topic". Terms from the General Solid Notifications specification are also used including “Notification Gateway API,” “Notification Subscription API,” and “Solid Server Metadata Resource.”
+This document uses terms from the Solid Protocol specification, including "data pod". This document also uses terms from the OAuth2 specification, including "resource server", "authorization server", and "client", as well as terms from the WebSub specification, including "topic". Terms from the General Solid Notifications specification are also used, including “Notification Gateway API”, “Notification Subscription API”, and “Solid Server Metadata Resource.”
 
 In addition, the following terms are defined:
 
@@ -41,8 +41,8 @@ The following is an example flow for the solid webhook notification flow with th
 
 ### Actors
 
- - **Authenticated User**: The user authenticated with the subscribing server. In this case, our authenticated user is Bob, with the WebId `https://bob.pod.example/profile/card#me`.
- - **subscribing server**: A server interestest in a websocket alert. In this example it is "Liqid Chat," a chat app API hosted at `https://api.liqid.chat`.
+ - **Authenticated User**: The user authenticated with the client server. In this case, our authenticated user is Bob, with the WebId `https://bob.pod.example/profile/card#me`.
+ - **Subscribing Server**: A server interestest in a webhook alert. In this example it is "Liqid Chat," a chat app API hosted at `https://api.liqid.chat`.
  - **Solid Metadata Resouce**: A metadata resource compliant with the Solid Specification. In this example, it is hosted at `https://pod.example/.well-known/solid`.
  - **Gateway API**: An HTTP endpoint at which a client can negotiate an acceptable notification subscription location. In this example, it is hosted at `https://pod.example/gateway`.
  - **Subscription API**: an HTTP endpoint at which a client can initiate a subscription to notification events for a particular set of resources. In this example, it is hosted at `https://pod.example/subscription`
