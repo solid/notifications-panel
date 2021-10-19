@@ -13,15 +13,15 @@ This document proposes an implementation for the `WebHookSubscription2021` Solid
 ## Use Cases
 
  1. All use cases from the general notifications API are still applicable:
-    1. **Immediate notification of data changes** - for many clients, it is important to know when a resource state changes. This includes collaborative editing apps, chat apps or any client that expects the underlying data to change frequently based on updates made by others.
-    2. **Change frequency** - sometimes a client doesn't need to be alerted for every change. If a client only needs infrequent updates, for example, every 5 minutes, it should be possible to avoid floods of data that might otherwise place a higher burden on the client application. Ideally, a client should be able to define what that aggregation window would be: for some clients, 10 seconds might be appropriate; for others, several minutes might be more appropriate.
+    1. **Immediate notification of data changes** - for many clients, it is important to know when a resource state changes. This includes collaborative editing apps, chat apps, and any client that expects the underlying data to change frequently based on updates made by others.
+    2. **Change frequency** - sometimes a client doesn't need to be alerted for every change. If a client only needs infrequent updates -- for example, every 5 minutes -- it should be possible to avoid floods of data that might otherwise place a higher burden on the client application. Ideally, a client should be able to define what that aggregation window would be: for some clients, 10 seconds might be appropriate; for others, several minutes might be more appropriate.
     3. **Filtered notifications** - certain categories of notifications may be more or less interesting to clients. For example, a client may not care about UPDATE operations or may only care about notifications for resources of certain types.
     4. **Time-bound subscriptions** - occasionally, a client only needs a subscription to be in effect for a limited period of time. While a client may easily close a WebSocket itself, subscriptions for other, more asynchronous forms of notifications, such as LDN alerts or WebHook operations, may be more difficult to terminate.
     5. **Avoiding missing updates** - for WebSockets and protocols that rely on an active, live connection to a notification server, the notification protocol needs to make sure that clients do not miss notifications in the event of a dropped connection.
     6. **Protocol negotiation** - a given Solid Notification server may support certain technologies (e.g. WebSockets and LDN) but not others (e.g. EventSource and WebSub). Likewise, a client may not support the same set of protocols that are implemented by a server. As such, there needs to be a mechanism for clients and servers to agree on a mutually supported protocol. In addition to simply determining the set of protocols that work for client and server, there may be particular features (e.g. notification aggregation, notification filtering) that are required for the client. This could be used to further filter the protocol selection.
     7. **Security** - a client should not be able to subscribe to resources to which it does not have read access.
- 2. **Verifiable requests to a client server** - a client server must be able to confirm if a request truly came from a specific Pod.
- 3. **Unsubscribing from a WebHook** - Unlike websockets, where sockets can simply be closed by the client, if a client server wants to unsubscribe from a webhook, it must alert a Pod.
+ 2. **Verifiable requests to a subscribing server** - a subscribing server must be able to confirm if a request truly came from a specific Pod.
+ 3. **Unsubscribing from a WebHook** - Unlike websockets, where sockets can simply be closed by the client, if a subscribing server wants to unsubscribe from a webhook, it must alert a Pod.
 
 ## Terminology
 
@@ -29,7 +29,7 @@ This document uses terms from the Solid Protocol specification, including "data 
 
 In addition, the following terms are defined:
 
-**Client Server** -- A server with some HTTP endpoint that will receive webhook requests from the Pod.
+**Subscribing Server** -- A server with some HTTP endpoint that will receive webhook requests from the Pod. For the case of the example, it can also be the server that initiates the subscription.
 
 **Pod (Private/Public) Key** -- A private public keypair associated with a specific data Pod.
 
@@ -37,12 +37,12 @@ In addition, the following terms are defined:
 
 This section is non-normative.
 
-The following is an example flow for the solid webhook notification flow with the `webhook-auth` feature enabled. We follow an example server client chat app called "Liqid Chat." It wants to subscribe to a resource at `https://bob.pod.example/chat1.ttl`.
+The following is an example flow for the solid webhook notification flow with the `webhook-auth` feature enabled. We follow an example subscribing server chat app called "Liqid Chat." It wants to subscribe to a resource at `https://bob.pod.example/chat1.ttl`.
 
 ### Actors
 
- - **Authenticated User**: The user authenticated with the client server. In this case, our authenticated user is Bob, with the WebId `https://bob.pod.example/profile/card#me`.
- - **Client Server**: A server interestest in a websocket alert. In this example it is "Liqid Chat," a chat app API hosted at `https://api.liqid.chat`.
+ - **Authenticated User**: The user authenticated with the subscribing server. In this case, our authenticated user is Bob, with the WebId `https://bob.pod.example/profile/card#me`.
+ - **subscribing server**: A server interestest in a websocket alert. In this example it is "Liqid Chat," a chat app API hosted at `https://api.liqid.chat`.
  - **Solid Metadata Resouce**: A metadata resource compliant with the Solid Specification. In this example, it is hosted at `https://pod.example/.well-known/solid`.
  - **Gateway API**: An HTTP endpoint at which a client can negotiate an acceptable notification subscription location. In this example, it is hosted at `https://pod.example/gateway`.
  - **Subscription API**: an HTTP endpoint at which a client can initiate a subscription to notification events for a particular set of resources. In this example, it is hosted at `https://pod.example/subscription`
@@ -58,7 +58,7 @@ The following is an example flow for the solid webhook notification flow with th
 
 #### 1. Discovery
 
-A request is sent from the Client Server
+A request is sent from the subscribing server
 
 ```http
 GET https://pod.example/.well-known/solid
@@ -83,7 +83,7 @@ Content-Type: application/ld+json
 
 #### 3. Negotiate for the WebHook protocol
 
-The Client Server makes a request to the `notification_endpoint` provided in the metadata resource. It includes `WebHookSubscription2021` as the desired type and `state`, `rate`, and `webhook-auth` as the desired features.
+The subscribing server makes a request to the `notification_endpoint` provided in the metadata resource. It includes `WebHookSubscription2021` as the desired type and `state`, `rate`, and `webhook-auth` as the desired features.
 
 ```http
 POST https://pod.example/gateway
@@ -113,7 +113,7 @@ Content-Type: application/ld+json
 
 #### 5. Request a new WebHook subscription (with access token)
 
-Assuming the client server already went through one of the Solid OIDC authentication flows, an Auth Token a DPoP Proof can be provided to the subscription endpoint.
+Assuming the subscribing server already went through one of the Solid OIDC authentication flows, an Auth Token a DPoP Proof can be provided to the subscription endpoint.
 
 ```http
 POST https://pod.example/subscription
@@ -150,7 +150,7 @@ The auth server returns the JWKS.
 If the token is not valid or the user does not have READ access to the resource, the Pod will return 403 to the server client.
 
 #### 8. Receive subscription URL and metadata
-The Pod returns a subscription URL to the client server.
+The Pod returns a subscription URL to the subscribing server.
 
 ```http
 Content-Type: application/ld+json
@@ -172,7 +172,7 @@ Some action (either an update to the resource or a deletion of that resource) ha
 
 
 #### 10. Webhook Request (With token signed by the Pod Key)
-A request is made to the client server's registered webhook.
+A request is made to the subscribing server's registered webhook.
 
 ```http
 POST https://api.liqid.chat/webhook
@@ -211,11 +211,11 @@ JWTSign({
 }, POD_PRIVATE_KEY)
 ```
 
-The client server should check the `iss` field and confirm that it matches the URL used in the discovery stage. 
+The subscribing server should check the `iss` field and confirm that it matches the URL used in the discovery stage. 
 
 #### 11. Discovery
 
-If not already cached, the client server should retrieve the Pod, metadata document.
+If not already cached, the subscribing server should retrieve the Pod, metadata document.
 
 ```http
 GET https://pod.example/.well-known/solid
@@ -253,7 +253,7 @@ Content-Type: application/json
 ```
 
 #### 15. Validate Webhook Token
-Using the JWKS the client server should validate the token provided in the authorization header. If the token is invalid, the client server should reject the request.
+Using the JWKS the subscribing server should validate the token provided in the authorization header. If the token is invalid, the subscribing server should reject the request.
 
 #### 16. Unsubscribe from the webhook
 If the client wishes to unsubscribe from the webhook, it can make a DELETE request to the provided `unsubscribe_endpoint`.
@@ -310,7 +310,7 @@ If a request is received at the unsubscribe endpoint and it does not include an 
 This section details the additional features built for `WebHookSubscription2021`.
 
 ### webhook-auth
-The `webhook-auth` feature allows client servers to verify that a request came from a certain Pod.
+The `webhook-auth` feature allows subscribing servers to verify that a request came from a certain Pod.
 
 Pods that implement the `webhook-auth` feature `MUST` include an HTTP endpoint that produces a JSON Web Key Set.
 
