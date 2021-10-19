@@ -25,7 +25,7 @@ This document proposes an implementation for the `WebHookSubscription2021` Solid
 
 ## Terminology
 
-This document uses terms from the Solid Protocol specification, including "data pod". This document also uses terms from the OAuth2 specification, including "resource server", "authorization server" and "client", as well as terms from the WebSub specification, including "topic". Terms from the General Solid Notifications specification are also used including “Notification Gateway API,” “Notification Subscription API,” and “Solid Server Metadata Resource.”
+This document uses terms from the Solid Protocol specification, including "data pod". This document also uses terms from the OAuth2 specification, including "resource server", "authorization server", and "client", as well as terms from the WebSub specification, including "topic". Terms from the General Solid Notifications specification are also used, including “Notification Gateway API”, “Notification Subscription API”, and “Solid Server Metadata Resource.”
 
 In addition, the following terms are defined:
 
