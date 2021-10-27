@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Solid Notifications Use Cases and Requirements</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" media="all" rel="stylesheet" title="W3C-ED" />
+<style>
+body {
+counter-reset:section;
+counter-reset:sub-section;
+}
+em.rfc2119 { color: #900; }
+code, samp { color: #c83500; }
+pre code, pre samp { color: #000; }
+dfn { font-weight:inherit; }
+.do.fragment a { border-bottom:0; }
+.do.fragment a:hover { background:none; border-bottom:0; }
+section figure pre { margin:1em 0; display:block; }
+cite .bibref { font-style: normal; }
+.tabs nav ul li { margin:0; }
+div.issue, div.note, div.warning {
+clear: both;
+margin: 1em 0;
+padding: 1em 1.2em 0.5em;
+position: relative;
+}
+div.issue h3, div.note h3,
+div.issue h4, div.note h4,
+div.issue h5, div.note h5 {
+margin:0;
+font-weight:normal;
+font-style:normal;
+}
+div.issue h3 > span, div.note h3 > span,
+div.issue h4 > span, div.note h4 > span,
+div.issue h5 > span, div.note h5 > span {
+text-transform: uppercase;
+}
+div.issue h3, div.issue h4, div.issue h5 {
+color:#ae1e1e;
+}
+div.note h3, div.note h4, div.note h5 {
+color:#178217;
+}
+figure .example-h {
+margin-top:0;
+text-align: left;
+color:#827017;
+}
+figure .example-h > span {
+text-transform: uppercase;
+}
+
+header address a[href] {
+float: right;
+margin: 1rem 0 0.2rem 0.4rem;
+background: transparent none repeat scroll 0 0;
+border: medium none;
+text-decoration: none;
+}
+header address img[src*="logos/W3C"] {
+background: #1a5e9a none repeat scroll 0 0;
+border-color: #1a5e9a;
+border-image: none;
+border-radius: 0.4rem;
+border-style: solid;
+border-width: 0.65rem 0.7rem 0.6rem;
+color: white;
+display: block;
+font-weight: bold;
+}
+main article > h1 {
+font-size: 220%;
+font-weight:bold;
+}
+
+article section:not([id=abstract]):not([id=sotd]):not([id=references]):not([id=appendix]):not([id=acknowledgements]):not([id=change-log]):not([id=exit-criteria]) {
+counter-increment:section;
+counter-reset:sub-section;
+}
+article section:not([id=abstract]):not([id=sotd]):not([id=references]):not([id=appendix]):not([id=acknowledgements]):not([id=change-log]) section:not([id$=references]):not([id=exit-criteria]) {
+counter-increment:sub-section;
+counter-reset:sub-sub-section;
+}
+article section:not([id=abstract]):not([id=sotd]):not([id=references]):not([id=appendix]):not([id=acknowledgements]):not([id=change-log]) section:not([id$=references]):not([id=exit-criteria]) section {
+counter-increment:sub-sub-section;
+counter-reset:sub-sub-sub-section;
+}
+article section:not([id=abstract]):not([id=sotd]):not([id=references]):not([id=appendix]):not([id=acknowledgements]):not([id=change-log]) section:not([id$=references]):not([id=exit-criteria]) section section {
+counter-increment:sub-sub-sub-section;
+counter-reset:sub-sub-sub-sub-section;
+}
+article section:not([id=abstract]):not([id=sotd]):not([id=references]):not([id=appendix]):not([id=acknowledgements]):not([id=change-log]):not([id=exit-criteria]):not([id^=table-of-]) > h2:before {
+content:counter(section) ".\00a0";
+}
+section:not([id$=references]):not([id^=change-log]):not([id=exit-criteria]) > h3:before {
+content:counter(section) "." counter(sub-section) "\00a0";
+}
+section > h4:before {
+content:counter(section)"." counter(sub-section) "." counter(sub-sub-section) "\00a0";
+}
+#acknowledgements ul { padding: 0; margin:0 }
+#acknowledgements li { display:inline; }
+#acknowledgements li:after { content: ", "; }
+#acknowledgements li:last-child:after { content: ""; }
+
+aside.do { overflow:inherit; }
+aside.do blockquote {
+padding: 0; border: 0; margin: 0;
+}
+dl[id^="document-"] ul {
+padding-left:0;
+list-style-type:none;
+}
+dl [rel~="odrl:action"],
+dl [rel~="odrl:action"] li {
+display: inline;
+}
+dl [rel~="odrl:action"] li:after {
+content: ",";
+}
+dl [rel~="odrl:action"] li:last-child:after {
+content: "";
+}
+
+table {
+width:100%;
+margin-top:1em;
+text-align:left;
+border-collapse:collapse;
+font-variant-numeric: lining-nums tabular-nums;
+overflow: auto;
+}
+table + table {
+margin-top:2em;
+}
+caption {
+text-align:left;
+padding:0 0.25em 0.25em;
+}
+caption, tbody, tfoot {
+border-bottom:2pt solid #000;
+}
+thead,
+thead th[colspan] {
+border-bottom:1pt solid #000;
+}
+
+[rowspan] { vertical-align: bottom; }
+tbody [rowspan] { vertical-align: middle; }
+
+tbody th[scope="rowgroup"] {
+border-bottom:3pt double #000;
+}
+
+th, td {
+padding:0.25em;
+font-size:0.923em;
+word-wrap:normal;
+}
+table ul,
+table ol,
+table li,
+table p,
+table dd {
+margin:0;
+text-align:left;
+}
+tfoot td > * + * {
+margin-top:1em;
+}
+
+tfoot dl.abbr dt,
+tfoot dl.abbr dd {
+display:inline;
+text-transform:none;
+}
+tfoot dl.abbr dd {
+margin-left:0;
+}
+tfoot dl.abbr dd:after {
+content:"\A";
+white-space:pre;
+}
+tfoot dl.abbr dt:after {
+content:": ";
+}
+tfoot dl.abbr {
+-webkit-column-count:2;
+-moz-column-count:2;
+column-count:2;
+}
+tfoot dl.abbr dt {
+font-weight:bold;
+}
+
+table[typeof~="qb:DataSet"] tbody tr:not([typeof~="earl:Assertion"]) td {
+text-align:center;
+}
+table[typeof~="qb:DataSet"] tbody tr:not([typeof~="earl:Assertion"]) th,
+table[typeof~="qb:DataSet"] tbody tr:not([typeof~="earl:Assertion"]) td {
+border: 1px solid #ccc;
+border-left-color: #eee;
+border-right-color: #eee;
+}
+</style>
+    <link href="https://dokie.li/media/css/dokieli.css" media="all" rel="stylesheet" />
+    <script src="https://dokie.li/scripts/dokieli.js"></script>
+  </head>
+
+  <body about="" prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs: http://www.w3.org/2000/01/rdf-schema# owl: http://www.w3.org/2002/07/owl# xsd: http://www.w3.org/2001/XMLSchema# dcterms: http://purl.org/dc/terms/ skos: http://www.w3.org/2004/02/skos/core# prov: http://www.w3.org/ns/prov# mem: http://mementoweb.org/ns# qb: http://purl.org/linked-data/cube# schema: http://schema.org/ doap: http://usefulinc.com/ns/doap# deo: http://purl.org/spar/deo/ fabio: http://purl.org/spar/fabio/ cito: http://purl.org/spar/cito/ as: https://www.w3.org/ns/activitystreams# ldp: http://www.w3.org/ns/ldp# earl: http://www.w3.org/ns/earl# spec: http://www.w3.org/ns/spec# rel: https://www.w3.org/ns/iana/link-relations/relation# odrl: http://www.w3.org/ns/odrl/2/" typeof="schema:CreativeWork prov:Entity as:Article">
+    <header>
+      <address>
+        <a class="logo" href="https://solidproject.org/"><img height="66" width="72" alt="Solid Project" src="https://solidproject.org/TR/solid.svg"/></a>
+      </address>
+    </header>
+
+    <main>
+      <article about="" typeof="schema:Article doap:Specification">
+        <h1 property="schema:name">Solid Notifications Use Cases and Requirements</h1>
+        <h2>Editor’s Draft, 2021-10-27</h2>
+
+        <dl id="document-identifier">
+          <dt>This version</dt>
+          <dd><a href="https://solid.github.io/notifications-panel/notifications-ucr" rel="owl:sameAs">https://solid.github.io/notifications-panel/notifications-ucr</a></dd>
+        </dl>
+
+        <dl id="document-latest-version">
+          <dt>Latest version</dt>
+          <dd><a href="https://solid.github.io/notifications-panel/notifications-ucr" rel="rel:latest-version">https://solid.github.io/notifications-panel/notifications-ucr</a></dd>
+        </dl>
+
+        <div id="authors">
+          <dl id="author-name">
+            <dt>Editors</dt>
+            <dd id="Sarven-Capadisli"><span about="" rel="schema:creator schema:editor"><span about="https://csarven.ca/#i" typeof="schema:Person"><a rel="schema:url" href="https://csarven.ca/"><span about="https://csarven.ca/#i" property="schema:name"><span property="schema:givenName">Sarven</span> <span property="schema:familyName">Capadisli</span></span></a></span></span></dd>
+          </dl>
+        </div>
+
+        <dl id="document-created">
+          <dt>Created</dt>
+          <dd><time content="2021-10-27T00:00:00Z" datatype="xsd:dateTime" datetime="2021-10-27T00:00:00Z" property="schema:dateCreated">2021-10-27</time></dd>
+        </dl>
+
+        <dl id="document-published">
+          <dt>Published</dt>
+          <dd><time content="2021-10-27T00:00:00Z" datatype="xsd:dateTime" datetime="2021-10-27T00:00:00Z" property="schema:datePublished">2021-10-27</time></dd>
+        </dl>
+
+        <dl id="document-modified">
+          <dt>Modified</dt>
+          <dd><time content="2021-10-27T00:00:00Z" datatype="xsd:dateTime" datetime="2021-10-27T00:00:00Z" property="schema:dateModified">2021-10-27</time></dd>
+        </dl>
+
+        <dl id="document-repository">
+          <dt>Repository</dt>
+          <dd><a href="https://github.com/solid/notifications-panel" rel="doap:repository">GitHub</a></dd>
+        </dl>
+
+        <dl id="document-language">
+          <dt>Language</dt>
+          <dd><span content="en" lang="" property="dcterms:language" xml:lang="">English</span></dd>
+        </dl>
+
+        <dl id="document-license">
+          <dt>License</dt>
+          <dd><a href="http://purl.org/NET/rdflicense/MIT1.0" rel="schema:license">MIT License</a></dd>
+        </dl>
+
+        <dl id="document-status">
+          <dt>Document Status</dt>
+          <dd prefix="pso: http://purl.org/spar/pso/" rel="pso:holdsStatusInTime" resource="#e1b46d66-3711-11ec-bce6-2fa17d3ab719"><span rel="pso:withStatus" resource="http://purl.org/spar/pso/draft" typeof="pso:PublicationStatus">Editor’s Draft</span></dd>
+        </dl>
+
+        <dl id="document-in-reply-to">
+          <dt>In Reply To</dt>
+          <dd><a href="https://solidproject.org/origin" rel="as:inReplyTo">Solid Origin</a></dd>
+          <dd><a href="https://github.com/solid/process/blob/main/notifications-panel-charter.md" rel="as:inReplyTo">Notifications Panel Charter</a></dd>
+        </dl>
+
+        <dl id="document-policy">
+          <dt>Policy</dt>
+          <dd>
+            <dl id="document-policy-offer" rel="odrl:hasPolicy" resource="#document-policy-offer" typeof="odrl:Policy">
+              <dt>Rule</dt>
+              <dd><a about="#document-policy-offer" href="https://www.w3.org/TR/odrl-vocab/#term-Offer" typeof="odrl:Offer">Offer</a></dd>
+              <dt>Unique Identifier</dt>
+              <dd><a href="https://solid.github.io/notifications-panel/notifications-ucr#document-policy-offer" rel="odrl:uid">https://solid.github.io/notifications-panel/notifications-ucr#document-policy-offer</a></dd>
+              <dt>Target</dt>
+              <dd><a href="https://solid.github.io/notifications-panel/notifications-ucr" rel="odrl:target">https://solid.github.io/notifications-panel/notifications-ucr</a></dd>
+              <dt>Permission</dt>
+              <dd>
+                <dl id="document-permission" rel="odrl:permission" resource="#document-permission" typeof="odrl:Permission">
+                  <dt>Assigner</dt>
+                  <dd><a rel="odrl:assigner" href="https://www.w3.org/community/solid/">W3C Solid Community Group</a></dd>
+                  <dt>Action</dt>
+                  <dd>
+                    <ul rel="odrl:action">
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-aggregate" resource="odrl:aggregate">Aggregate</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-archive" resource="odrl:archive">Archive</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-concurrentUse" resource="odrl:concurrentUse">Concurrent Use</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-DerivativeWorks" resource="http://creativecommons.org/ns#DerivativeWorks">Derivative Works</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-derive" resource="odrl:derive">Derive</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-digitize" resource="odrl:digitize">Digitize</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-display" resource="odrl:display">Display</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-Distribution" resource="http://creativecommons.org/ns#Distribution">Distribution</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-index" resource="odrl:index">Index</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-inform" resource="odrl:inform">Inform</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-install" resource="odrl:install">Install</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-Notice" resource="http://creativecommons.org/ns#Notice">Notice</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-present" resource="odrl:present">Present</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-print" resource="odrl:print">Print</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-read" resource="odrl:read">Read</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-reproduce" resource="odrl:reproduce">Reproduce</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-Reproduction" resource="http://creativecommons.org/ns#Reproduction">Reproduction</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-stream" resource="odrl:stream">Stream</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-synchronize" resource="odrl:synchronize">Synchronize</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-textToSpeech" resource="odrl:textToSpeech">Text-to-speech</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-transform" resource="odrl:transform">Transform</a></li>
+                      <li><a href="https://www.w3.org/TR/odrl-vocab/#term-translate" resource="odrl:translate">Translate</a></li>
+                    </ul>
+                  </dd>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+        </dl>
+
+        <p class="copyright">Copyright © 2021 <a href="http://www.w3.org/community/solid/">W3C Solid Community Group</a>.</p>
+
+        <div datatype="rdf:HTML" id="content" property="schema:description">
+          <section id="abstract">
+            <h2>Abstract</h2>
+            <div datatype="rdf:HTML" property="schema:abstract">
+              <p>Solid Notifications Use Cases and Requirements.</p>
+            </div>
+          </section>
+
+          <section id="sotd" inlist="" rel="schema:hasPart" resource="#sotd">
+            <h2 property="schema:name">Status of This Document</h2>
+            <div property="schema:description" datatype="rdf:HTML">
+              <p>This section describes the status of this document at the time of its publication.</p>
+
+              <p>This document was published by the <a href="https://www.w3.org/community/solid/">Solid Community Group</a> as an Editor’s Draft. The sections that have been incorporated have been reviewed following the <a href="https://github.com/solid/process">Solid process</a>. However, the information in this document is still subject to change. You are invited to <a href="https://github.com/solid/notifications/issues">contribute</a> any feedback, comments, or questions you might have.</p>
+
+              <p>Publication as an Editor’s Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p>
+
+              <p>This document was produced by a group operating under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>. A human-readable <a href="https://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available.</p>
+            </div>
+          </section>
+
+          <nav id="toc">
+            <h2 id="table-of-contents">Table of Contents</h2>
+            <div>
+              <ol class="toc">
+                <li class="tocline">
+                  <a class="tocxref" href="#abstract">Abstract</a>
+                </li>
+                <li class="tocline">
+                  <a class="tocxref" href="#sotd">Status of This Document</a>
+                </li>
+                <li class="tocline">
+                  <a class="tocxref" href="#introduction"><span class="secno">1</span> <span class="content">Introduction</span></a>
+                  <ol>
+                    <li><a href="#terminology"><span class="secno">1.1</span> <span class="content">Terminology</span></a></li>
+                  </ol>
+                </li>
+                <li class="tocline">
+                  <a class="tocxref" href="#use-cases"><span class="secno">2</span> <span class="content">Use Cases</span></a>
+                </li>
+                <li class="tocline">
+                  <a class="tocxref" href="#requirements"><span class="secno">3</span> <span class="content">Requirements</span></a>
+                  <ol>
+                    <li><a href="#functional-considerations"><span class="secno">3.1</span> <span class="content">Functional Requirements</span></a></li>
+                    <li><a href="#non-functional-requirements"><span class="secno">3.2</span> <span class="content">Non-Functional Requirements</span></a></li>
+                  </ol>
+                </li>
+                <li class="tocline">
+                  <a class="tocxref" href="#considerations"><span class="secno">12</span> <span class="content">Considerations</span></a>
+                  <ol>
+                    <li><a href="#privacy-considerations"><span class="secno">12.1</span> <span class="content">Privacy Considerations</span></a></li>
+                    <li><a href="#accessibility-considerations"><span class="secno">12.2</span> <span class="content">Accessibility Considerations</span></a></li>
+                    <li><a href="#ethical-considerations"><span class="secno">12.3</span> <span class="content">Ethical Considerations</span></a></li>
+                  </ol>
+                </li>
+                <li class="tocline">
+                  <a class="tocxref" href="#references"><span class="secno"></span> <span class="content">References</span></a>
+                  <ol>
+                    <li><a href="#informative-references"><span class="secno"></span> <span class="content">Informative References</span></a></li>
+                  </ol>
+                </li>
+              </ol>
+            </div>
+          </nav>
+
+          <section id="introduction" inlist="" rel="schema:hasPart" resource="#introduction">
+            <h2 about="#introduction" property="schema:name" typeof="deo:Introduction">Introduction</h2>
+            <div datatype="rdf:HTML" property="schema:description">
+              <p><em>This section is non-normative.</em></p>
+
+              <p id="motivation" rel="schema:hasPart" resource="#motivation" typeof="deo:Motivation"><span datatype="rdf:HTML" property="schema:description">Motivation...</span></p>
+
+              <p>..</p>
+
+              <p>This document is for:</p>
+
+              <ul rel="schema:audience">
+                <li><a href="http://data.europa.eu/esco/occupation/8cb59bc4-1f39-477e-beea-effed12d186c">Technical communicators</a> that want to develop information and media concepts, standards, structures and software tool support.</li>
+              </ul>
+
+              <section id="terminology" inlist="" rel="schema:hasPart" resource="#terminology" typeof="skos:ConceptScheme">
+                <h3 property="schema:name skos:prefLabel">Terminology</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <p><em>This section is non-normative.</em></p>
+
+                  <p property="skos:definition">This document defines the following terms. These terms are referenced throughout this document.</p>
+
+                  <span rel="skos:hasTopConcept"><span resource="#foo-bar-baz"></span></span>
+
+                  <dl>
+                    <dt about="#foo-bar-baz" property="skos:prefLabel" typeof="skos:Concept"><dfn id="foo">Foo Bar Baz</dfn></dt>
+                    <dd about="#foo-bar-baz" property="skos:definition">Foo Bar Baz...</dd>
+                  </dl>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section id="use-cases" inlist="" rel="schema:hasPart" resource="#use-cases" typeof="skos:Collection">
+            <h2 property="schema:name skos:prefLabel">Use Cases</h2>
+            <div datatype="rdf:HTML" property="schema:description">
+              <p><em>This section is non-normative.</em></p>
+
+              <section id="use-case-immediate-notification-data-changes" inlist="" rel="skos:member" resource="#use-case-immediate-notification-data-changes" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Immediate Notification of Data Changes</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>For many clients, it is important to know when a resource state changes. This includes collaborative editing apps, chat apps or any client that expects the underlying data to change frequently based on updates made by others.</p>
+
+                  <dl id="requirements-immediate-notification-data-changes" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-foo">Foo</a></dd>
+                    <dd><a href="#functional-requirement-bar">Bar</a></dd>
+                    <dd><a href="#functional-requirement-baz">Baz</a></dd>
+                  </dl>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section id="requirements" inlist="" rel="schema:hasPart" resource="#requirements">
+            <h2 property="schema:name">Requirements</h2>
+            <div datatype="rdf:HTML" property="schema:description">
+              <p><em>This section is non-normative.</em></p>
+
+              <p>This section lists the functional and non-functional requirements arising from the use-cases catalogued in this document. Specific requirements that have been de-prioritized or rejected have been left in the document for completeness, but are shown as struck out.</p>
+
+              <p>The use cases and their requirements are tabulated below, followed by a definition of each requirement.</p>
+
+              <table id="table-use-cases-requirments" rel="schema:hasPart" resource="#table-use-cases-requirements" typeof="qb:DataSet">
+                <caption property="schema:name">Table of Use Cases and Requirements</caption>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Use Case</th>
+                    <th colspan="2">Functional Requirements</th>
+                    <th colspan="1">Non-Functional Requirements</th>
+                  </tr>
+                  <tr>
+                    <td><a href="#functional-requirement-foo">F1</a></td>
+                    <td><a href="#functional-requirement-bar">F2</a></td>
+                    <td><a href="#non-functional-requirement-bar">NF1</a></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="#use-case-immediate-notification-data-changes">Immediate Notification of Data Changes</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4">
+                      <dl>
+                        <dt><abbr title="Required by Use Case">✔</abbr></dt><dd>Required</dd>
+                        <dt><abbr title="Inapplicable">⌙</abbr></dt><dd>Inapplicable</dd>
+                      </dl>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+
+              <section id="functional-requirements" inlist="" rel="schema:hasPart" resource="#functional-requirements" typeof="skos:ConceptScheme">
+                <h3 property="schema:name skos:prefLabel">Functional Requirements</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <p><em>This section is non-normative.</em></p>
+
+                  <span rel="skos:member"><span resource="#functional-requirement-foo"></span><span resource="#functional-requirement-bar"></span></span>
+
+                  <dl>
+                    <dt about="#functional-requirement-foo" property="skos:prefLabel" typeof="skos:Concept"><dfn id="functional-requirement-foo">Foo</dfn></dt>
+                    <dd about="#functional-requirement-foo" property="skos:definition">Foo</dd>
+                    <dt about="#functional-requirement-bar" property="skos:prefLabel" typeof="skos:Concept"><dfn id="functional-requirement-bar">Bar</dfn></dt>
+                    <dd about="#functional-requirement-bar" property="skos:definition">Bar</dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="non-functional-requirements" inlist="" rel="schema:hasPart" resource="#non-functional-requirements" typeof="skos:ConceptScheme">
+                <h3 property="schema:name skos:prefLabel">Non-Functional Requirements</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <p><em>This section is non-normative.</em></p>
+
+                  <span rel="skos:member"><span resource="#non-functional-requirement-baz"></span></span>
+
+                  <dl>
+                    <dt about="#non-functional-requirement-baz" property="skos:prefLabel" typeof="skos:Concept"><dfn id="functional-requirement-baz">Baz</dfn></dt>
+                    <dd about="#non-functional-requirement-baz" property="skos:definition">Baz</dd>
+                  </dl>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section id="considerations" inlist="" rel="schema:hasPart" resource="#considerations">
+            <h2 property="schema:name">Considerations</h2>
+            <div datatype="rdf:HTML" property="schema:description">
+              <p>This section details privacy, accessibility and ethical considerations.</p>
+
+              <section id="privacy-considerations" inlist="" rel="schema:hasPart" resource="#privacy-considerations">
+                <h3 property="schema:name">Privacy Considerations</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <p><em>This section is non-normative.</em></p>
+                </div>
+              </section>
+
+              <section id="accessibility-considerations" inlist="" rel="schema:hasPart" resource="#accessibility-considerations">
+                <h3 property="schema:name">Accessibility Considerations</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <p><em>This section is non-normative.</em></p>
+                </div>
+              </section>
+
+              <section id="ethical-considerations" inlist="" rel="schema:hasPart" resource="#ethical-considerations">
+                <h3 property="schema:name">Ethical Considerations</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <p><em>This section is non-normative.</em></p>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="appendix" id="references" inlist="" rel="schema:hasPart" resource="#references">
+            <h2 property="schema:name">References</h2>
+            <div datatype="rdf:HTML" property="schema:description">
+              <section id="informative-references" inlist="" rel="schema:hasPart" resource="#informative-references">
+                <h3 property="schema:name">Informative References</h3>
+                <div datatype="rdf:HTML" property="schema:description">
+                  <dl class="bibliography" resource="">
+                    <dt id="bib-ethical-web">[ETHICAL-WEB]</dt>
+                    <dd><a href="https://www.w3.org/2001/tag/doc/ethical-web-principles/"><cite>W3C TAG Ethical Web Principles</cite></a>. Daniel Appelquist; Hadley Beeman.  W3C. 27 October 2020. TAG Finding. URL: <a href="https://www.w3.org/2001/tag/doc/ethical-web-principles/">https://www.w3.org/2001/tag/doc/ethical-web-principles/</a></dd>
+                    <dt id="bib-rfc3986">[RFC3986]</dt>
+                    <dd><a href="https://datatracker.ietf.org/doc/html/rfc3986" rel="cito:citesAsAuthority"><cite>Uniform Resource Identifier (URI): Generic Syntax</cite></a>. T. Berners-Lee; R. Fielding; L. Masinter.  IETF. January 2005. Internet Standard. URL: <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a></dd>
+                    <dt id="bib-rfc6454">[RFC6454]</dt>
+                    <dd><a href="https://datatracker.ietf.org/doc/html/rfc6454" rel="cito:citesAsAuthority"><cite>The Web Origin Concept</cite></a>. A. Barth.  IETF. December 2011. Proposed Standard. URL: <a href="https://datatracker.ietf.org/doc/html/rfc6454">https://datatracker.ietf.org/doc/html/rfc6454</a></dd>
+                    <dt id="bib-rfc7231">[RFC7231]</dt>
+                    <dd><a href="https://httpwg.org/specs/rfc7231.html" rel="cito:citesAsAuthority"><cite>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</cite></a>. R. Fielding, Ed.; J. Reschke, Ed..  IETF. June 2014. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc7231.html">https://httpwg.org/specs/rfc7231.html</a></dd>
+                    <dt id="bib-solid-protocol">[SOLID-PROTOCOL]</dt>
+                    <dd><a href="https://solidproject.org/TR/protocol" rel="cito:citesAsAuthority"><cite>Solid Protocol</cite></a>. Sarven Capadisli; Tim Berners-Lee; Ruben Verborgh; Kjetil Kjernsmo; Justin Bingham; Dmitri Zagidulin.  W3C Solid Community Group. W3C Editor’s Draft. URL: <a href="https://solidproject.org/TR/protocol">https://solidproject.org/TR/protocol</a></dd>
+                    <dt id="bib-webarch">[WEBARCH]</dt>
+                    <dd><a href="https://www.w3.org/TR/webarch/" rel="cito:citesAsAuthority"><cite>Architecture of the World Wide Web, Volume One</cite></a>. Ian Jacobs; Norman Walsh.  W3C. 15 December 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/webarch/">https://www.w3.org/TR/webarch/</a></dd>
+                  </dl>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to top">↑</abbr></a></p>
+
+    <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+  </body>
+</html>
