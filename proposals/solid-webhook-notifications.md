@@ -264,7 +264,7 @@ The request body of the subscription API `MUST` include a `target` field, the va
 
 If a request is received at the subscribe endpoint and it is not authenticated in some way, the Pod `MUST` reject the request.
 
-The authenticated user during the subscribe request must have READ access to the topic resource. If it does not the server `MUST` reject.
+The authenticated user during the subscribe request must have READ access to the topic resource. If it does not, the server `MUST` reject.
 
 The response body of the subscription API `MUST` include the `target` field, the value of which corresponds to the provided `target` field.
 
