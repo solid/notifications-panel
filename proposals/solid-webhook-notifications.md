@@ -12,14 +12,7 @@ This document proposes an implementation for the `WebHookSubscription2021` Solid
 
 ## Use Cases
 
- 1. All use cases from the general notifications API are still applicable:
-    1. **Immediate notification of data changes** - for many clients, it is important to know when a resource state changes. This includes collaborative editing apps, chat apps, and any client that expects the underlying data to change frequently based on updates made by others.
-    2. **Change frequency** - sometimes a client doesn't need to be alerted for every change. If a client only needs infrequent updates -- for example, every 5 minutes -- it should be possible to avoid floods of data that might otherwise place a higher burden on the client application. Ideally, a client should be able to define what that aggregation window would be: for some clients, 10 seconds might be appropriate; for others, several minutes might be more appropriate.
-    3. **Filtered notifications** - certain categories of notifications may be more or less interesting to clients. For example, a client may not care about UPDATE operations or may only care about notifications for resources of certain types.
-    4. **Time-bound subscriptions** - occasionally, a client only needs a subscription to be in effect for a limited period of time. While a client may easily close a WebSocket itself, subscriptions for other, more asynchronous forms of notifications, such as LDN alerts or WebHook operations, may be more difficult to terminate.
-    5. **Avoiding missing updates** - for WebSockets and protocols that rely on an active, live connection to a notification server, the notification protocol needs to make sure that clients do not miss notifications in the event of a dropped connection.
-    6. **Protocol negotiation** - a given Solid Notification server may support certain technologies (e.g., WebSockets and LDN) but not others (e.g., EventSource and WebSub). Likewise, a client may not support the same set of protocols that are implemented by a server. As such, there needs to be a mechanism for clients and servers to agree on a mutually supported protocol. In addition to simply determining the set of protocols that work for client and server, there may be particular features (e.g., notification aggregation, notification filtering) that are required for the client. This could be used to further filter the protocol selection.
-    7. **Security** - a client should not be able to subscribe to resources to which it does not have read access.
+ 1. All use cases from the [general notifications API](solid-notifications.md#Use%20Cases) are still applicable.
  2. **Verifiable requests to a subscribing server** - a subscribing server must be able to confirm if a request truly came from a specific Pod.
  3. **Unsubscribing from a WebHook** - Unlike websockets, where sockets can simply be closed by the client, if a subscribing server wants to unsubscribe from a webhook, it must alert a Pod.
 
@@ -112,6 +105,8 @@ Content-Type: application/ld+json
 ```
 
 #### 5. Request a new WebHook subscription (with access token)
+
+This non-normative example assumes that we are authenticating using Solid-OIDC. Other authentication
 
 Assuming the subscribing server already went through one of the Solid OIDC authentication flows, an Auth Token a DPoP Proof can be provided to the subscription endpoint.
 
@@ -267,9 +262,9 @@ The request body of the subscription API `MUST` have the `type` field set to `"W
 
 The request body of the subscription API `MUST` include a `target` field, the value of which `MUST` be a URI with an `https` scheme. If it is not, the server `MUST` reject the request.
 
-If a request is received at the subscribe endpoint and it does not include an Authorization or DPoP header, the Authorization or DPoP Headers are invalid, or the WebId in the authorization header does not correspond with the WebId that made the subscription, the Pod `MUST` reject the request.
+If a request is received at the subscribe endpoint and it is not authenticated in some way, the Pod `MUST` reject the request.
 
-The Auth Token's WebId must have READ access to the topic resource. If it does not the server `MUST` reject.
+The authenticated user during the subscribe request must have READ access to the topic resource. If it does not, the server `MUST` reject.
 
 The response body of the subscription API `MUST` include the `target` field, the value of which corresponds to the provided `target` field.
 
