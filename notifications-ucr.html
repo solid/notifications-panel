@@ -484,6 +484,25 @@ border-right-color: #eee;
                 </div>
               </section>
 
+              <section id="use-case-capability-discovery" inlist="" rel="skos:member" resource="#use-case-capability-discovery" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Capability Discovery</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>
+                    A given Solid Notification server may support certain technologies (e.g. WebSockets and LDN)
+                    but not others (e.g. EventSource and WebSub). Likewise, a client may not support the same set
+                    of technologies that are implemented by a server. As such, there needs to be a mechanism for
+                    clients and servers to agree on a mutually supported subscription type. In addition to simply
+                    determining the set of protocols that work for client and server, there may be particular
+                    features (e.g. notification aggregation, notification filtering) that are required by the client.
+                    This could be used to further filter the protocol selection.
+                  </p>
+                  <dl id="requirements-filtered-notifications" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-discovery">Capability Discovery</a></dd>
+                  </dl>
+                </div>
+              </section>
+
             </div>
           </section>
 
@@ -501,7 +520,7 @@ border-right-color: #eee;
                 <thead>
                   <tr>
                     <th rowspan="2">Use Case</th>
-                    <th colspan="4">Functional Requirements</th>
+                    <th colspan="5">Functional Requirements</th>
                     <th colspan="1">Non-Functional Requirements</th>
                   </tr>
                   <tr>
@@ -509,6 +528,7 @@ border-right-color: #eee;
                     <td><a href="#functional-requirement-update-events">F2</a></td>
                     <td><a href="#functional-requirement-delete-events">F3</a></td>
                     <td><a href="#functional-requirement-event-filtering">F4</a></td>
+                    <td><a href="#functional-requirement-discovery">F5</a></td>
                     <td><a href="#non-functional-requirement-baz">NF1</a></td>
                   </tr>
                 </thead>
@@ -520,6 +540,7 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>⌙</td>
                     <td>⌙</td>
+                    <td>⌙</td>
                   </tr>
                   <tr>
                     <td><a href="#use-case-change-frequency">Frequency of Notifications</a></td>
@@ -528,8 +549,8 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>✔</td>
                     <td>⌙</td>
+                    <td>⌙</td>
                   </tr>
-
                   <tr>
                     <td><a href="#use-case-filtered-notifications">Filtered Notifications</a></td>
                     <td>✔</td>
@@ -537,8 +558,17 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>✔</td>
                     <td>⌙</td>
+                    <td>⌙</td>
                   </tr>
-
+                  <tr>
+                    <td><a href="#use-case-capability-discovery">Capability Discovery</a></td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                  </tr>
                 </tbody>
                 <tfoot>
                   <tr>
@@ -562,6 +592,7 @@ border-right-color: #eee;
                     <span resource="#functional-requirement-update-events"></span>
                     <span resource="#functional-requirement-delete-events"></span>
                     <span resource="#functional-requirement-event-filtering"></span>
+                    <span resource="#functional-requirement-discovery"></span>
                   </span>
 
                   <dl>
@@ -573,6 +604,8 @@ border-right-color: #eee;
                     <dd about="#functional-requirement-delete-events" property="skos:definition">A subscribed entity is alerted when an existing resource is deleted.</dd>
                     <dt about="#functional-requirement-event-filtering" property="skos:definition" typeof="skos:Concept">F4. <dfn id="functional-requirement-event-filtering">Event Filtering</dfn></dt>
                     <dd about="#functional-requirement-event-filtering" property="skos:definition">A subscribed entity can request a subset of all notifications.</dd>
+                    <dt about="#functional-requirement-discovery" property="skos:definition" typeof="skos:Concept">F5. <dfn id="functional-requirement-discovery">Capability Discovery</dfn></dt>
+                    <dd about="#functional-requirement-discovery" property="skos:definition">A client is able to discover the notification capabilities of a Solid Storage.</dd>
                   </dl>
                 </div>
               </section>
