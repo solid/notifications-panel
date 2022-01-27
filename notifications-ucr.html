@@ -452,7 +452,7 @@ border-right-color: #eee;
                 <div datatype="rdf:HTML" property="skos:definition">
                   <p>
                     Sometimes a client doesn't need to be alerted for every change. If a client only needs
-                    infrequent updates, for example, every 5 minutes, it should be possible to avoid floods
+                    infrequent updates (for example, every 5 minutes), it should be possible to avoid floods
                     of data that might otherwise place a higher burden on the client application. Ideally,
                     a client should be able to define what that aggregation window would be: for some clients,
                     10 seconds might be appropriate; for others, several minutes might be more appropriate.
@@ -528,12 +528,12 @@ border-right-color: #eee;
                 <h3 property="skos:prefLabel">Capability Discovery</h3>
                 <div datatype="rdf:HTML" property="skos:definition">
                   <p>
-                    A given Solid Notification server may support certain technologies (e.g. WebSockets and LDN)
-                    but not others (e.g. EventSource and WebSub). Likewise, a client may not support the same set
+                    A given Solid Notification server may support certain technologies (e.g., WebSockets and LDN)
+                    but not others (e.g., EventSource and WebSub). Likewise, a client may not support the same set
                     of technologies that are implemented by a server. As such, there needs to be a mechanism for
                     clients and servers to agree on a mutually supported subscription type. In addition to simply
                     determining the set of protocols that work for client and server, there may be particular
-                    features (e.g. notification aggregation, notification filtering) that are required by the client.
+                    features (e.g., notification aggregation, notification filtering) that are required by the client.
                     This could be used to further filter the protocol selection.
                   </p>
                   <dl id="requirements-filtered-notifications" rel="rdfs:seeAlso">
