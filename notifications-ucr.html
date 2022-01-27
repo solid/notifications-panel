@@ -250,7 +250,7 @@ border-right-color: #eee;
 
         <dl id="document-modified">
           <dt>Modified</dt>
-          <dd><time content="2021-10-27T00:00:00Z" datatype="xsd:dateTime" datetime="2021-10-27T00:00:00Z" property="schema:dateModified">2021-10-27</time></dd>
+          <dd><time content="2022-01-20T00:00:00Z" datatype="xsd:dateTime" datetime="2022-01-22T00:00:00Z" property="schema:dateModified">2022-01-20</time></dd>
         </dl>
 
         <dl id="document-repository">
@@ -439,12 +439,110 @@ border-right-color: #eee;
 
                   <dl id="requirements-immediate-notification-data-changes" rel="rdfs:seeAlso">
                     <dt>Requirements</dt>
-                    <dd><a href="#functional-requirement-foo">Foo</a></dd>
-                    <dd><a href="#functional-requirement-bar">Bar</a></dd>
-                    <dd><a href="#functional-requirement-baz">Baz</a></dd>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
                   </dl>
                 </div>
               </section>
+
+              <section id="use-case-change-frequency" inlist="" rel="skos:member" resource="#use-case-change-frequency" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Frequency of Notifications</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>
+                    Sometimes a client doesn't need to be alerted for every change. If a client only needs
+                    infrequent updates (for example, every 5 minutes), it should be possible to avoid floods
+                    of data that might otherwise place a higher burden on the client application. Ideally,
+                    a client should be able to define what that aggregation window would be: for some clients,
+                    10 seconds might be appropriate; for others, several minutes might be more appropriate.
+                  </p>
+                  <dl id="requirements-change-frequency" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-event-filtering">Event Filtering</a></dd>
+                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="use-case-filtered-notifications" inlist="" rel="skos:member" resource="#use-case-filtered-notifications" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Filtered Notifications</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>
+                    Certain categories of notifications may be more or less interesting to clients.
+                    For example, a client may not care about UPDATE operations or may only care about
+                    notifications for resources of certain types.
+                  </p>
+                  <dl id="requirements-filtered-notifications" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-event-filtering">Event Filtering</a></dd>
+                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="use-case-time-bound-subscriptions" inlist="" rel="skos:member" resource="#use-case-time-bound-subscriptions" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Time-bound Subscriptions</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>
+                    Occasionally, a client only needs a subscription to be in effect for a limited
+                    period of time. While a client may easily close a WebSocket itself, subscriptions
+                    for other, more asynchronous forms of notifications, such as LDN alerts or WebHook
+                    operations, may be more difficult to terminate.
+                  </p>
+                  <dl id="requirements-time-bound-subscriptions" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="use-case-lost-updates" inlist="" rel="skos:member" resource="#use-case-lost-updates" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Lost Update Notifications</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>
+                    For WebSockets and subscriptions that rely on an active, live connection to
+                    a notification server, the subscription channel needs to make sure that clients
+                    do not miss notifications in the event of a dropped connection.
+                  </p>
+                  <dl id="requirements-time-bound-subscriptions" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="use-case-capability-discovery" inlist="" rel="skos:member" resource="#use-case-capability-discovery" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Capability Discovery</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>
+                    A given Solid Notification server may support certain technologies (e.g., WebSockets and LDN)
+                    but not others (e.g., EventSource and WebSub). Likewise, a client may not support the same set
+                    of technologies that are implemented by a server. As such, there needs to be a mechanism for
+                    clients and servers to agree on a mutually supported subscription type. In addition to simply
+                    determining the set of protocols that work for client and server, there may be particular
+                    features (e.g., notification aggregation, notification filtering) that are required by the client.
+                    This could be used to further filter the protocol selection.
+                  </p>
+                  <dl id="requirements-filtered-notifications" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-discovery">Capability Discovery</a></dd>
+                  </dl>
+                </div>
+              </section>
+
             </div>
           </section>
 
@@ -462,13 +560,17 @@ border-right-color: #eee;
                 <thead>
                   <tr>
                     <th rowspan="2">Use Case</th>
-                    <th colspan="2">Functional Requirements</th>
+                    <th colspan="6">Functional Requirements</th>
                     <th colspan="1">Non-Functional Requirements</th>
                   </tr>
                   <tr>
-                    <td><a href="#functional-requirement-foo">F1</a></td>
-                    <td><a href="#functional-requirement-bar">F2</a></td>
-                    <td><a href="#non-functional-requirement-bar">NF1</a></td>
+                    <td><a href="#functional-requirement-create-events">F1</a></td>
+                    <td><a href="#functional-requirement-update-events">F2</a></td>
+                    <td><a href="#functional-requirement-delete-events">F3</a></td>
+                    <td><a href="#functional-requirement-event-filtering">F4</a></td>
+                    <td><a href="#functional-requirement-access-control">F5</a></td>
+                    <td><a href="#functional-requirement-discovery">F6</a></td>
+                    <td><a href="#non-functional-requirement-baz">NF1</a></td>
                   </tr>
                 </thead>
                 <tbody>
@@ -477,6 +579,60 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>✔</td>
                     <td>✔</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-change-frequency">Frequency of Notifications</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-filtered-notifications">Filtered Notifications</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-time-bound-subscriptions">Time-Bound Subscriptions</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-lost-updates">Lost Update Notifications</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-capability-discovery">Capability Discovery</a></td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -496,13 +652,28 @@ border-right-color: #eee;
                 <div datatype="rdf:HTML" property="schema:description">
                   <p><em>This section is non-normative.</em></p>
 
-                  <span rel="skos:member"><span resource="#functional-requirement-foo"></span><span resource="#functional-requirement-bar"></span></span>
+                  <span rel="skos:member">
+                    <span resource="#functional-requirement-create-events"></span>
+                    <span resource="#functional-requirement-update-events"></span>
+                    <span resource="#functional-requirement-delete-events"></span>
+                    <span resource="#functional-requirement-event-filtering"></span>
+                    <span resource="#functional-requirement-access-control"></span>
+                    <span resource="#functional-requirement-discovery"></span>
+                  </span>
 
                   <dl>
-                    <dt about="#functional-requirement-foo" property="skos:prefLabel" typeof="skos:Concept">F1. <dfn id="functional-requirement-foo">Foo</dfn></dt>
-                    <dd about="#functional-requirement-foo" property="skos:definition">Foo</dd>
-                    <dt about="#functional-requirement-bar" property="skos:prefLabel" typeof="skos:Concept">F2. <dfn id="functional-requirement-bar">Bar</dfn></dt>
-                    <dd about="#functional-requirement-bar" property="skos:definition">Bar</dd>
+                    <dt about="#functional-requirement-create-events" property="skos:prefLabel" typeof="skos:Concept">F1. <dfn id="functional-requirement-create-events">Create Events</dfn></dt>
+                    <dd about="#functional-requirement-create-events" property="skos:definition">A subscribed entity is alerted when a new resource is created.</dd>
+                    <dt about="#functional-requirement-update-events" property="skos:prefLabel" typeof="skos:Concept">F2. <dfn id="functional-requirement-update-events">Update Events</dfn></dt>
+                    <dd about="#functional-requirement-update-events" property="skos:definition">A subscribed entity is alerted when an existing resource is updated.</dd>
+                    <dt about="#functional-requirement-delete-events" property="skos:prefLabel" typeof="skos:Concept">F3. <dfn id="functional-requirement-delete-events">Delete Events</dfn></dt>
+                    <dd about="#functional-requirement-delete-events" property="skos:definition">A subscribed entity is alerted when an existing resource is deleted.</dd>
+                    <dt about="#functional-requirement-event-filtering" property="skos:definition" typeof="skos:Concept">F4. <dfn id="functional-requirement-event-filtering">Event Filtering</dfn></dt>
+                    <dd about="#functional-requirement-event-filtering" property="skos:definition">A subscribed entity can request a subset of all notifications.</dd>
+                    <dt about="#functional-requirement-access-control" property="skos:definition" typeof="skos:Concept">F5. <dfn id="functional-requirement-access-control">Authorization</dfn></dt>
+                    <dd about="#functional-requirement-access-control" property="skos:definition">Authorization is enforced on all subscriptions.</dd>
+                    <dt about="#functional-requirement-discovery" property="skos:definition" typeof="skos:Concept">F6. <dfn id="functional-requirement-discovery">Capability Discovery</dfn></dt>
+                    <dd about="#functional-requirement-discovery" property="skos:definition">A client is able to discover the notification capabilities of a Solid Storage.</dd>
                   </dl>
                 </div>
               </section>
