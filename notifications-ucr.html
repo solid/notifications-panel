@@ -443,6 +443,39 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
                     <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-request-handling">Request Handling</a></dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="use-case-notification-data-changes-multiple-resources" inlist="" rel="skos:member" resource="#use-case-notification-data-changes-multiple-resources" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Notification of Data Changes on Multiple Resources</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>Clients might want to know state changes of multiple resources at a time. For example, an app may simultaneously recieve notifications from a container and also the resources within the container and/or resources linked to the said container.</p>
+
+                  <dl id="requirements-notification-data-changes-multiple-resources" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-request-handling">Request Handling</a></dd>
+                  </dl>
+                </div>
+              </section>
+
+              <section id="use-case-amend-list-resources-notification-data-changes" inlist="" rel="skos:member" resource="#use-case-amend-list-resources-notification-data-changes" typeof="skos:Concept">
+                <h3 property="skos:prefLabel">Amend List of Resources for Notification of Data Changes</h3>
+                <div datatype="rdf:HTML" property="skos:definition">
+                  <p>Clients might want to amend the list of resources they recieve notifications of data change from. This allows the client to respond to modifications made to a container, such as a resource within it being created or removed.</p>
+
+                  <dl id="requirements-amend-list-resources-notification-data-changes" rel="rdfs:seeAlso">
+                    <dt>Requirements</dt>
+                    <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
+                    <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
+                    <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-request-modification-handling">Request Modification Handling</a></dd>
                   </dl>
                 </div>
               </section>
@@ -464,6 +497,8 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
                     <dd><a href="#functional-requirement-event-filtering">Event Filtering</a></dd>
                     <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-request-handling">Request Handling</a></dd>
+                    <dd><a href="#functional-requirement-request-modification-handling">Request Modification Handling</a></dd>
                   </dl>
                 </div>
               </section>
@@ -483,6 +518,8 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
                     <dd><a href="#functional-requirement-event-filtering">Event Filtering</a></dd>
                     <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-request-handling">Request Handling</a></dd>
+                    <dd><a href="#functional-requirement-request-modification-handling">Request Modification Handling</a></dd>
                   </dl>
                 </div>
               </section>
@@ -502,6 +539,8 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
                     <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-request-handling">Request Handling</a></dd>
+                    <dd><a href="#functional-requirement-request-modification-handling">Request Modification Handling</a></dd>
                   </dl>
                 </div>
               </section>
@@ -560,7 +599,7 @@ border-right-color: #eee;
                 <thead>
                   <tr>
                     <th rowspan="2">Use Case</th>
-                    <th colspan="6">Functional Requirements</th>
+                    <th colspan="8">Functional Requirements</th>
                     <th colspan="1">Non-Functional Requirements</th>
                   </tr>
                   <tr>
@@ -570,6 +609,8 @@ border-right-color: #eee;
                     <td><a href="#functional-requirement-event-filtering">F4</a></td>
                     <td><a href="#functional-requirement-authorization">F5</a></td>
                     <td><a href="#functional-requirement-capability-discovery">F6</a></td>
+                    <td><a href="#functional-requirement-request-handling">F7</a></td>
+                    <td><a href="#functional-requirement-request-modification-handling">F8</a></td>
                     <td><a href="#non-functional-requirement-baz">NF1</a></td>
                   </tr>
                 </thead>
@@ -582,6 +623,32 @@ border-right-color: #eee;
                     <td>⌙</td>
                     <td>✔</td>
                     <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-notification-data-changes-multiple-resources">Notification of Data Changes on Multiple Resources</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                  </tr>
+                  <tr>
+                    <td><a href="#use-case-amend-list-resources-notification-data-changes">Amend List of Resources for Notification of Data Changes</a></td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
+                    <td>✔</td>
                     <td>⌙</td>
                   </tr>
                   <tr>
@@ -592,6 +659,8 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>✔</td>
                     <td>⌙</td>
+                    <td>✔</td>
+                    <td>✔</td>
                     <td>⌙</td>
                   </tr>
                   <tr>
@@ -602,6 +671,8 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>✔</td>
                     <td>⌙</td>
+                    <td>✔</td>
+                    <td>✔</td>
                     <td>⌙</td>
                   </tr>
                   <tr>
@@ -612,6 +683,8 @@ border-right-color: #eee;
                     <td>⌙</td>
                     <td>✔</td>
                     <td>⌙</td>
+                    <td>✔</td>
+                    <td>✔</td>
                     <td>⌙</td>
                   </tr>
                   <tr>
@@ -623,6 +696,8 @@ border-right-color: #eee;
                     <td>✔</td>
                     <td>⌙</td>
                     <td>⌙</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
                   </tr>
                   <tr>
                     <td><a href="#use-case-capability-discovery">Capability Discovery</a></td>
@@ -632,6 +707,8 @@ border-right-color: #eee;
                     <td>⌙</td>
                     <td>⌙</td>
                     <td>✔</td>
+                    <td>⌙</td>
+                    <td>⌙</td>
                     <td>⌙</td>
                   </tr>
                 </tbody>
@@ -659,6 +736,8 @@ border-right-color: #eee;
                     <span resource="#functional-requirement-event-filtering"></span>
                     <span resource="#functional-requirement-authorization"></span>
                     <span resource="#functional-requirement-capability-discovery"></span>
+                    <span resource="#functional-requirement-request-handling"></span>
+                    <span resource="#functional-requirement-request-modification-handling"></span>
                   </span>
 
                   <dl>
@@ -674,6 +753,12 @@ border-right-color: #eee;
                     <dd about="#functional-requirement-authorization" property="skos:definition">Authorization is enforced on all subscriptions.</dd>
                     <dt about="#functional-requirement-capability-discovery" property="skos:definition" typeof="skos:Concept">F6. <dfn id="functional-requirement-capability-discovery">Capability Discovery</dfn></dt>
                     <dd about="#functional-requirement-capability-discovery" property="skos:definition">A client is able to discover the notification capabilities of a Solid Storage.</dd>
+                    <dt about="#functional-requirement-request-handling" property="skos:definition" typeof="skos:Concept">F7.
+                    <dfn id="functional-requirement-request-handling">Request Handling</dfn></dt>
+                    <dd about="#functional-requirement-request-handling" property="skos:definition">The Solid storage must be able to process the parameters of the subscription request made by a client.</dd>
+                    <dt about="#functional-requirement-request-handling" property="skos:definition" typeof="skos:Concept">F8.
+                    <dfn id="functional-requirement-request-modification-handling">Request Modification Handling</dfn></dt>
+                    <dd about="#functional-requirement-request-modification-handling" property="skos:definition">The Solid storage must be able to modify the parameters of the subscription request made by a client.</dd>
                   </dl>
                 </div>
               </section>
