@@ -442,7 +442,7 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
-                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
                   </dl>
                 </div>
               </section>
@@ -463,7 +463,7 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
                     <dd><a href="#functional-requirement-event-filtering">Event Filtering</a></dd>
-                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
                   </dl>
                 </div>
               </section>
@@ -482,7 +482,7 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
                     <dd><a href="#functional-requirement-event-filtering">Event Filtering</a></dd>
-                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
                   </dl>
                 </div>
               </section>
@@ -501,7 +501,7 @@ border-right-color: #eee;
                     <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
-                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
                   </dl>
                 </div>
               </section>
@@ -514,12 +514,12 @@ border-right-color: #eee;
                     a notification server, the subscription channel needs to make sure that clients
                     do not miss notifications in the event of a dropped connection.
                   </p>
-                  <dl id="requirements-time-bound-subscriptions" rel="rdfs:seeAlso">
+                  <dl id="requirements-lost-updates" rel="rdfs:seeAlso">
                     <dt>Requirements</dt>
                     <dd><a href="#functional-requirement-create-events">Create Events</a></dd>
                     <dd><a href="#functional-requirement-update-events">Update Events</a></dd>
                     <dd><a href="#functional-requirement-delete-events">Delete Events</a></dd>
-                    <dd><a href="#functional-requirement-access-control">Authorization</a></dd>
+                    <dd><a href="#functional-requirement-authorization">Authorization</a></dd>
                   </dl>
                 </div>
               </section>
@@ -536,9 +536,9 @@ border-right-color: #eee;
                     features (e.g., notification aggregation, notification filtering) that are required by the client.
                     This could be used to further filter the protocol selection.
                   </p>
-                  <dl id="requirements-filtered-notifications" rel="rdfs:seeAlso">
+                  <dl id="requirements-capability-discovery" rel="rdfs:seeAlso">
                     <dt>Requirements</dt>
-                    <dd><a href="#functional-requirement-discovery">Capability Discovery</a></dd>
+                    <dd><a href="#functional-requirement-capability-discovery">Capability Discovery</a></dd>
                   </dl>
                 </div>
               </section>
@@ -568,8 +568,8 @@ border-right-color: #eee;
                     <td><a href="#functional-requirement-update-events">F2</a></td>
                     <td><a href="#functional-requirement-delete-events">F3</a></td>
                     <td><a href="#functional-requirement-event-filtering">F4</a></td>
-                    <td><a href="#functional-requirement-access-control">F5</a></td>
-                    <td><a href="#functional-requirement-discovery">F6</a></td>
+                    <td><a href="#functional-requirement-authorization">F5</a></td>
+                    <td><a href="#functional-requirement-capability-discovery">F6</a></td>
                     <td><a href="#non-functional-requirement-baz">NF1</a></td>
                   </tr>
                 </thead>
@@ -657,8 +657,8 @@ border-right-color: #eee;
                     <span resource="#functional-requirement-update-events"></span>
                     <span resource="#functional-requirement-delete-events"></span>
                     <span resource="#functional-requirement-event-filtering"></span>
-                    <span resource="#functional-requirement-access-control"></span>
-                    <span resource="#functional-requirement-discovery"></span>
+                    <span resource="#functional-requirement-authorization"></span>
+                    <span resource="#functional-requirement-capability-discovery"></span>
                   </span>
 
                   <dl>
@@ -670,10 +670,10 @@ border-right-color: #eee;
                     <dd about="#functional-requirement-delete-events" property="skos:definition">A subscribed entity is alerted when an existing resource is deleted.</dd>
                     <dt about="#functional-requirement-event-filtering" property="skos:definition" typeof="skos:Concept">F4. <dfn id="functional-requirement-event-filtering">Event Filtering</dfn></dt>
                     <dd about="#functional-requirement-event-filtering" property="skos:definition">A subscribed entity can request a subset of all notifications.</dd>
-                    <dt about="#functional-requirement-access-control" property="skos:definition" typeof="skos:Concept">F5. <dfn id="functional-requirement-access-control">Authorization</dfn></dt>
-                    <dd about="#functional-requirement-access-control" property="skos:definition">Authorization is enforced on all subscriptions.</dd>
-                    <dt about="#functional-requirement-discovery" property="skos:definition" typeof="skos:Concept">F6. <dfn id="functional-requirement-discovery">Capability Discovery</dfn></dt>
-                    <dd about="#functional-requirement-discovery" property="skos:definition">A client is able to discover the notification capabilities of a Solid Storage.</dd>
+                    <dt about="#functional-requirement-authorization" property="skos:definition" typeof="skos:Concept">F5. <dfn id="functional-requirement-authorization">Authorization</dfn></dt>
+                    <dd about="#functional-requirement-authorization" property="skos:definition">Authorization is enforced on all subscriptions.</dd>
+                    <dt about="#functional-requirement-capability-discovery" property="skos:definition" typeof="skos:Concept">F6. <dfn id="functional-requirement-capability-discovery">Capability Discovery</dfn></dt>
+                    <dd about="#functional-requirement-capability-discovery" property="skos:definition">A client is able to discover the notification capabilities of a Solid Storage.</dd>
                   </dl>
                 </div>
               </section>
