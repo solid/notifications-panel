@@ -17,7 +17,7 @@ All contributors to any Work Items must be members of the Solid CG. It’s easy 
 
 Anyone can join the [Solid Notifications Panel chat](https://gitter.im/solid/notifications-panel).
 
-Online panel meetings occur weekly on Thursdays, 14:00 UTC at https://meet.jit.si/solid-notifications . Meetings are transcribed and [published](https://github.com/solid/notifications-panel/tree/main/meetings/).
+A **tentative** slot for online panel meetings is held open on Thursdays, 14:00 UTC at https://meet.jit.si/solid-notifications. Please refer to the [chat](https://gitter.im/solid/notifications-panel) for concrete meeting plans and agendas. Meetings are transcribed and [published](https://github.com/solid/notifications-panel/tree/main/meetings/).
 
 ## Code of Conduct
 
